@@ -1,0 +1,29 @@
+<div class="grid-container">
+    <div class="grid-x grid-padding-x grid-padding-y">
+        <div class="small-7 cell">
+            <input id="query-input" [(ngModel)]="query" placeholder="type name or price">
+        </div>
+        <div class="expanded button-group small-5 cell">
+            <a class="success button" (click)="gotoAddNew()">Add</a>
+            <a class="alert button">Save</a>
+        </div>
+    </div>
+    <header class="grid-x grid-padding-x grid-padding-y">
+        <div class="menu-header small-12 text-center">Filtered Dishes</div>
+    </header>
+    <div class="grid-x grid-margin-x grid-margin-y">
+        <div class="menu-item-card medium-6 large-4 cell" *ngFor="let dish of dishes | search:'name,price':query"
+             (click)="onSelect(dish)" [class.selected]="dish === dishService.selectedDish">
+            <img src={{dish.params.imgUrl}}>
+
+            <div class="menu-item-card-info grid-x">
+                <div class="menu-item-title small-9 text-left">{{dish.params.name}}</div>
+                <div class="menu-item-price small-3 text-right">{{dish.params.price}}</div>
+            </div>
+            <div class="expanded button-group">
+                <a class="success button" (click)="onSelect(dish); gotoDetail()">Edit</a>
+                <a class="alert button" (click)="delete(dish); $event.stopPropagation()">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
