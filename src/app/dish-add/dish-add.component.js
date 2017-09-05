@@ -13,34 +13,19 @@ require("rxjs/add/operator/switchMap");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
 var dish_1 = require("../classes/dish");
 var dish_service_1 = require("../services/dish.service");
 var DishAddComponent = (function () {
-    function DishAddComponent(dishService, route, location) {
+    function DishAddComponent(dishService, route, location, fb) {
         this.dishService = dishService;
         this.route = route;
         this.location = location;
+        this.fb = fb;
+        this.createForm();
     }
     DishAddComponent.prototype.ngOnInit = function () {
         this.dish = new dish_1.Dish;
-        if (this.dishService.selectedDish) {
-            this.dish.params = {
-                name: this.dishService.selectedDish.params.name,
-                price: this.dishService.selectedDish.params.price,
-                imgUrl: this.dishService.selectedDish.params.imgUrl,
-                dateFrom: this.dishService.selectedDish.params.dateFrom,
-                dateTo: this.dishService.selectedDish.params.dateTo
-            };
-        }
-        else {
-            this.dish.params = {
-                name: '',
-                price: 0,
-                imgUrl: '',
-                dateFrom: '',
-                dateTo: ''
-            };
-        }
     };
     DishAddComponent.prototype.add = function (dish) {
         var _this = this;
@@ -57,6 +42,15 @@ var DishAddComponent = (function () {
     DishAddComponent.prototype.goBack = function () {
         this.location.back();
     };
+    DishAddComponent.prototype.createForm = function () {
+        this.addForm = this.fb.group({
+            name: this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '',
+            price: this.dishService.selectedDish ? this.dishService.selectedDish.params.price : 0,
+            imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
+            dateFrom: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateFrom : '',
+            dateTo: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateTo : ''
+        });
+    };
     return DishAddComponent;
 }());
 DishAddComponent = __decorate([
@@ -66,7 +60,8 @@ DishAddComponent = __decorate([
     }),
     __metadata("design:paramtypes", [dish_service_1.DishService,
         router_1.ActivatedRoute,
-        common_1.Location])
+        common_1.Location,
+        forms_1.FormBuilder])
 ], DishAddComponent);
 exports.DishAddComponent = DishAddComponent;
 //# sourceMappingURL=dish-add.component.js.map

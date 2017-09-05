@@ -2,6 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }        from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location }                 from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Dish }        from '../classes/dish';
 import { DishService } from '../services/dish.service';
@@ -12,32 +13,17 @@ import { DishService } from '../services/dish.service';
 })
 export class DishAddComponent implements OnInit {
     dish:Dish;
+    addForm: FormGroup;
 
     constructor(private dishService:DishService,
                 private route:ActivatedRoute,
-                private location:Location) {
+                private location:Location,
+                private fb: FormBuilder) {
+        this.createForm();
     }
 
     ngOnInit():void {
         this.dish = new Dish;
-        if (this.dishService.selectedDish) {
-            this.dish.params = {
-                name: this.dishService.selectedDish.params.name,
-                price: this.dishService.selectedDish.params.price,
-                imgUrl: this.dishService.selectedDish.params.imgUrl,
-                dateFrom: this.dishService.selectedDish.params.dateFrom,
-                dateTo: this.dishService.selectedDish.params.dateTo
-            }
-
-        } else {
-            this.dish.params = {
-                name: '',
-                price: 0,
-                imgUrl: '',
-                dateFrom: '',
-                dateTo: ''
-            }
-        }
     }
 
     add(dish:Dish):void {
@@ -54,5 +40,15 @@ export class DishAddComponent implements OnInit {
 
     goBack():void {
         this.location.back();
+    }
+
+    createForm() {
+        this.addForm = this.fb.group({
+          name: this.dishService.selectedDish?this.dishService.selectedDish.params.name:'',
+          price: this.dishService.selectedDish?this.dishService.selectedDish.params.price:0,
+          imgUrl: this.dishService.selectedDish?this.dishService.selectedDish.params.imgUrl:'',
+          dateFrom: this.dishService.selectedDish?this.dishService.selectedDish.params.dateFrom:'',
+          dateTo: this.dishService.selectedDish?this.dishService.selectedDish.params.dateTo:''
+        });
     }
 }

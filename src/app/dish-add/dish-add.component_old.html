@@ -1,37 +1,43 @@
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate class="grid-container" *ngIf="dish">
+<div class="grid-container" *ngIf="dish">
   <header class="grid-x grid-padding-x grid-padding-y">
     <div class="menu-header small-12 text-center">Add Dish</div>
   </header>
   <div class="grid-x grid-margin-x grid-margin-y">
     <div class="menu-item-card medium-6 cell">
-      <img src="{{addForm.get('imgUrl').value}}">
+      <img src={{dish.params.imgUrl}}>
     </div>
     <div class="menu-item-card-info medium-6">
 
         <div class="grid-x grid-padding-x">
           <div class="small-3 cell">
+            <label for="id-input" class="text-right middle">Id</label>
+          </div>
+          <div class="small-9 cell">
+            <input type="text" id="id-input" value={{dish.id}} disabled>
+          </div>
+          <div class="small-3 cell">
             <label for="title-input" class="text-right middle">Title</label>
           </div>
           <div class="small-9 cell">
-            <input type="text" id="title-input" formControlName="name" placeholder="name">
+            <input type="text" id="title-input" [(ngModel)]="dish.params.name" placeholder="name">
           </div>
           <div class="small-3 cell">
             <label for="price-input" class="text-right middle">Price</label>
           </div>
           <div class="small-9 cell">
-            <input type="text" id="price-input" formControlName="name" placeholder="price">
+            <input type="text" id="price-input" [(ngModel)]="dish.params.price" placeholder="price">
           </div>
           <div class="small-3 cell">
             <label for="from-input" class="text-right middle">From</label>
           </div>
           <div class="small-9 cell">
-            <input type="text" id="from-input" formControlName="dateFrom" placeholder="date from">
+            <input type="text" id="from-input" [(ngModel)]="dish.params.dateFrom" placeholder="date from">
           </div>
           <div class="small-3 cell">
             <label for="to-input" class="text-right middle">To</label>
           </div>
           <div class="small-9 cell">
-            <input type="text" id="to-input" formControlName="dateTo" placeholder="date to">
+            <input type="text" id="to-input" [(ngModel)]="dish.params.dateTo" placeholder="date to">
           </div>
           <div class="button-group expanded small-12 cell">
             <a class="submit button" (click)="goBack()">Back</a>
@@ -40,4 +46,4 @@
         </div>
     </div>
   </div>
-</form>
+</div>

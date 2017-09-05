@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
 import { HttpModule }    from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +25,8 @@ import { SearchPipe }           from './pipes/search.pipe';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule // <-- #2 add to @NgModule imports
   ],
   declarations: [
     AppComponent,
