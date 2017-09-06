@@ -1,0 +1,17 @@
+.valid-info {
+    font-size: 10px;
+    color: green;
+}
+
+.invalid-info {
+    font-size: 10px;
+    color: red;
+}
+
+.ng-valid[required] {
+    border-left: 3px solid green;
+}
+
+.ng-invalid:not(form) {
+    border-left: 3px solid red;
+}

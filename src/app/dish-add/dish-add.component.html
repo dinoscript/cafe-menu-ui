@@ -1,43 +1,58 @@
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate class="grid-container" *ngIf="dish">
-  <header class="grid-x grid-padding-x grid-padding-y">
-    <div class="menu-header small-12 text-center">Add Dish</div>
-  </header>
-  <div class="grid-x grid-margin-x grid-margin-y">
-    <div class="menu-item-card medium-6 cell">
-      <img src="{{addForm.get('imgUrl').value}}">
-    </div>
-    <div class="menu-item-card-info medium-6">
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate class="grid-container">
+    <header class="grid-x grid-padding-x grid-padding-y">
+        <div class="menu-header small-12 text-center">Add Dish</div>
+    </header>
+    <div class="grid-x grid-margin-x grid-margin-y">
+        <div class="menu-item-card medium-6 cell">
+            <img src="{{addForm.get('imgUrl').value}}">
+        </div>
+        <div class="menu-item-card-info medium-6">
 
-        <div class="grid-x grid-padding-x">
-          <div class="small-3 cell">
-            <label for="title-input" class="text-right middle">Title</label>
-          </div>
-          <div class="small-9 cell">
-            <input type="text" id="title-input" formControlName="name" placeholder="name">
-          </div>
-          <div class="small-3 cell">
-            <label for="price-input" class="text-right middle">Price</label>
-          </div>
-          <div class="small-9 cell">
-            <input type="text" id="price-input" formControlName="name" placeholder="price">
-          </div>
-          <div class="small-3 cell">
-            <label for="from-input" class="text-right middle">From</label>
-          </div>
-          <div class="small-9 cell">
-            <input type="text" id="from-input" formControlName="dateFrom" placeholder="date from">
-          </div>
-          <div class="small-3 cell">
-            <label for="to-input" class="text-right middle">To</label>
-          </div>
-          <div class="small-9 cell">
-            <input type="text" id="to-input" formControlName="dateTo" placeholder="date to">
-          </div>
-          <div class="button-group expanded small-12 cell">
-            <a class="submit button" (click)="goBack()">Back</a>
-            <a class="alert button" (click)="add(dish)">Add</a>
-          </div>
+            <div class="grid-x grid-padding-x">
+                <div *ngIf="addForm.controls['name'].invalid"
+                     class="small-12 cell text-right">
+                    <div *ngIf="addForm.controls['name'].errors.required" class="invalid-info">
+                        Name is required
+                    </div>
+                    <div *ngIf="addForm.controls['name'].errors.minlength" class="invalid-info">
+                        Name must be at least 4 characters long
+                    </div>
+                </div>
+                <div *ngIf="!addForm.controls['name'].invalid"
+                     class="small-12 cell text-right">
+                    <div class="valid-info">
+                        Name is valid
+                    </div>
+                </div>
+                <div class="small-3 cell">
+                    <label for="title-input" class="text-right middle">Title</label>
+                </div>
+                <div class="small-9 cell">
+                    <input type="text" id="title-input" formControlName="name" placeholder="name" required>
+                </div>
+                <div class="small-3 cell">
+                    <label for="price-input" class="text-right middle">Price</label>
+                </div>
+                <div class="small-9 cell">
+                    <input type="text" id="price-input" formControlName="price" placeholder="price" required>
+                </div>
+                <div class="small-3 cell">
+                    <label for="from-input" class="text-right middle">From</label>
+                </div>
+                <div class="small-9 cell">
+                    <input type="text" id="from-input" formControlName="dateFrom" placeholder="date from" required>
+                </div>
+                <div class="small-3 cell">
+                    <label for="to-input" class="text-right middle">To</label>
+                </div>
+                <div class="small-9 cell">
+                    <input type="text" id="to-input" formControlName="dateTo" placeholder="date to" required>
+                </div>
+                <div class="button-group expanded small-12 cell">
+                    <button class="submit button" (click)="goBack()">Back</button>
+                    <button class="alert button" [disabled]=addForm.invalid (click)="add(addForm.value)">Add</button>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
 </form>
