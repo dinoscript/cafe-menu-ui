@@ -23,16 +23,14 @@ var DishAddComponent = (function () {
     }
     DishAddComponent.prototype.ngOnInit = function () {
     };
-    DishAddComponent.prototype.add = function (params) {
+    DishAddComponent.prototype.onSubmit = function (params) {
         var _this = this;
         params.name = params.name.trim();
         if (!params.name) {
-            console.log(this.addForm);
             return;
         }
         this.dishService.create(params)
             .then(function (dish) {
-            console.log(dish);
             _this.goBack();
         });
     };
@@ -40,27 +38,31 @@ var DishAddComponent = (function () {
         this.location.back();
     };
     DishAddComponent.prototype.createForm = function () {
+        this.dateTo = new Date;
+        console.log(this.dateTo);
+        console.log(this.dateTo);
         this.addForm = this.fb.group({
-            name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '',
-                [forms_1.Validators.required, forms_1.Validators.minLength(4), this.nameValidator, this.forbiddenNameValidator(/bob/i)]
-            ],
-            price: this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '',
+            name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(50) /*, this.nameValidator*/]],
+            price: [this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '', [forms_1.Validators.required, this.priceValidator]],
             imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
             dateFrom: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateFrom : '',
             dateTo: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateTo : ''
         });
     };
-    DishAddComponent.prototype.nameValidator = function (control) {
+    /*
+    nameValidator(control:FormControl):{[s:string]:boolean} {
+
         if (control.value === "nonono") {
-            return { "userName": true };
+            return {"badName": true};
         }
         return null;
-    };
-    DishAddComponent.prototype.forbiddenNameValidator = function (nameRe) {
-        return function (control) {
-            var forbidden = nameRe.test(control.value);
-            return forbidden ? { 'forbiddenName': { value: control.value } } : null;
-        };
+    }
+    */
+    DishAddComponent.prototype.priceValidator = function (control) {
+        if (control.value <= 0) {
+            return { "badPrice": true };
+        }
+        return null;
     };
     return DishAddComponent;
 }());

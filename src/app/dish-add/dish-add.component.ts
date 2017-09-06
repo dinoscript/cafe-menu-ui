@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }        from '@angular/core';
 import { Location }                 from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { DishService } from '../services/dish.service';
 
@@ -12,6 +12,7 @@ import { DishService } from '../services/dish.service';
 })
 export class DishAddComponent implements OnInit {
     addForm:FormGroup;
+    dateTo:Date;
 
     constructor(private dishService:DishService,
                 private location:Location,
@@ -22,15 +23,13 @@ export class DishAddComponent implements OnInit {
     ngOnInit():void {
     }
 
-    add(params:any):void {
+    onSubmit(params:any):void {
         params.name = params.name.trim();
         if (!params.name) {
-            console.log(this.addForm);
             return;
         }
         this.dishService.create(params)
             .then(dish => {
-                console.log(dish);
                 this.goBack()
             });
     }
@@ -40,29 +39,43 @@ export class DishAddComponent implements OnInit {
     }
 
     createForm() {
+        this.dateTo = new Date;
+        console.log (this.dateTo);
+        console.log (this.dateTo);
         this.addForm = this.fb.group({
-            name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '',
-                [Validators.required, Validators.minLength(4), this.nameValidator, this.forbiddenNameValidator(/bob/i)]
-            ],
-            price: this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '',
+            name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(50)/*, this.nameValidator*/]],
+            price: [this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '', [Validators.required, this.priceValidator]],
             imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
             dateFrom: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateFrom : '',
             dateTo: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateTo : ''
         });
     }
 
+    /*
     nameValidator(control:FormControl):{[s:string]:boolean} {
 
         if (control.value === "nonono") {
-            return {"userName": true};
+            return {"badName": true};
+        }
+        return null;
+    }
+    */
+
+    priceValidator(control:FormControl):{[s:string]:boolean} {
+
+        if (control.value <= 0) {
+            return {"badPrice": true};
+
         }
         return null;
     }
 
+    /*
     forbiddenNameValidator(nameRe:RegExp):ValidatorFn {
         return (control:AbstractControl):{[key: string]: any} => {
             const forbidden = nameRe.test(control.value);
             return forbidden ? {'forbiddenName': {value: control.value}} : null;
         };
     }
+    */
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate class="grid-container">
+<form [formGroup]="addForm" (ngSubmit)="onSubmit(addForm.value)" novalidate class="grid-container">
     <header class="grid-x grid-padding-x grid-padding-y">
         <div class="menu-header small-12 text-center">Add Dish</div>
     </header>
@@ -17,6 +17,12 @@
                     <div *ngIf="addForm.controls['name'].errors.minlength" class="invalid-info">
                         Name must be at least 4 characters long
                     </div>
+                    <div *ngIf="addForm.controls['name'].errors.maxlength" class="invalid-info">
+                        Name must be no more than 50 characters long
+                    </div>
+                    <div *ngIf="addForm.controls['name'].invalid && addForm.controls['name'].hasError('badName') && !addForm.controls['name'].errors.required" class="invalid-info">
+                        Price must be > 0
+                    </div>
                 </div>
                 <div *ngIf="!addForm.controls['name'].invalid"
                      class="small-12 cell text-right">
@@ -30,11 +36,26 @@
                 <div class="small-9 cell">
                     <input type="text" id="title-input" formControlName="name" placeholder="name" required>
                 </div>
+                <div *ngIf="addForm.controls['price'].invalid"
+                     class="small-12 cell text-right">
+                    <div *ngIf="addForm.controls['price'].errors.required" class="invalid-info">
+                        Price is required
+                    </div>
+                    <div *ngIf="addForm.controls['price'].invalid && addForm.controls['price'].hasError('badPrice') && !addForm.controls['price'].errors.required" class="invalid-info">
+                        Price must be > 0
+                    </div>
+                </div>
+                <div *ngIf="!addForm.controls['price'].invalid"
+                     class="small-12 cell text-right">
+                    <div class="valid-info">
+                        Price is valid
+                    </div>
+                </div>
                 <div class="small-3 cell">
                     <label for="price-input" class="text-right middle">Price</label>
                 </div>
                 <div class="small-9 cell">
-                    <input type="text" id="price-input" formControlName="price" placeholder="price" required>
+                    <input type="number" id="price-input" formControlName="price" placeholder="price" required>
                 </div>
                 <div class="small-3 cell">
                     <label for="from-input" class="text-right middle">From</label>
@@ -50,7 +71,7 @@
                 </div>
                 <div class="button-group expanded small-12 cell">
                     <button class="submit button" (click)="goBack()">Back</button>
-                    <button class="alert button" [disabled]=addForm.invalid (click)="add(addForm.value)">Add</button>
+                    <button type="submit" class="alert button" [disabled]=addForm.invalid>Add</button>
                 </div>
             </div>
         </div>

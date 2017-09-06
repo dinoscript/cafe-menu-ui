@@ -25,7 +25,10 @@ var DishService = (function () {
     DishService.prototype.getDishes = function () {
         return this.http.get(this.dishesUrl)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) {
+            console.log(response.json().data.JSON);
+            return response.json().data;
+        })
             .catch(this.handleError);
     };
     DishService.prototype.getDish = function (id) {

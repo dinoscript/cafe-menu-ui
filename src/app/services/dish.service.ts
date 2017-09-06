@@ -23,7 +23,11 @@ export class DishService {
     getDishes():Promise<Dish[]> {
         return this.http.get(this.dishesUrl)
             .toPromise()
-            .then(response => response.json().data as Dish[])
+            //.then(response => response.json().data as Dish[])
+            .then(function(response) {
+                            console.log(response.json().data.JSON);
+                            return response.json().data as Dish[];
+                    })
             .catch(this.handleError);
     }
 

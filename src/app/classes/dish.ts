@@ -4,7 +4,7 @@ export class Dish {
         name: string;
         price: number;
         imgUrl: string;
-        dateFrom: string;
-        dateTo: string;
+        dateFrom: Date;
+        dateTo: Date;
     }
 }
