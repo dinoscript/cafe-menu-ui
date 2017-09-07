@@ -10,8 +10,8 @@ var InMemoryDataService = (function () {
                     name: 'Barbeque Chicken',
                     price: 11.95,
                     imgUrl: "app/assets/img/barbeque_chicken.jpg",
-                    dateFrom: "21/08/2017",
-                    dateTo: "27/08/2017"
+                    dateFrom: "2014-11-30T12:00:00.000Z",
+                    dateTo: "2014-11-29T12:00:00.000Z"
                 }
             },
             { id: 1,
@@ -19,8 +19,8 @@ var InMemoryDataService = (function () {
                     name: 'The Super Salad',
                     price: 15.95,
                     imgUrl: "app/assets/img/the_super_salad.jpg",
-                    dateFrom: "22/08/2017",
-                    dateTo: "27/08/2017"
+                    dateFrom: "2014-11-28T12:00:00.000Z",
+                    dateTo: "2014-11-27T12:00:00.000Z"
                 }
             },
             { id: 2,
@@ -28,8 +28,8 @@ var InMemoryDataService = (function () {
                     name: 'Beet and Arugula Salad',
                     price: 8.85,
                     imgUrl: "app/assets/img/beet_and_arugula_salad.jpg",
-                    dateFrom: "23/08/2017",
-                    dateTo: "27/08/2017"
+                    dateFrom: "2014-11-26T12:00:00.000Z",
+                    dateTo: "2014-11-25T12:00:00.000Z"
                 }
             }
         ];

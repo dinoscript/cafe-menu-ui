@@ -39,15 +39,16 @@ var DishAddComponent = (function () {
     };
     DishAddComponent.prototype.createForm = function () {
         this.dateTo = new Date;
-        console.log(this.dateTo);
-        console.log(this.dateTo);
+        //console.log (this.dateTo);
+        //console.log (this.dateTo);
         this.addForm = this.fb.group({
             name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(50) /*, this.nameValidator*/]],
             price: [this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '', [forms_1.Validators.required, this.priceValidator]],
             imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
-            dateFrom: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateFrom : '',
-            dateTo: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateTo : ''
+            dateFrom: this.setDefaultDateFrom(),
+            dateTo: { value: this.setDefaultDateTo(), disabled: true }
         });
+        //console.log(this.addForm);
     };
     /*
     nameValidator(control:FormControl):{[s:string]:boolean} {
@@ -63,6 +64,13 @@ var DishAddComponent = (function () {
             return { "badPrice": true };
         }
         return null;
+    };
+    DishAddComponent.prototype.setDefaultDateTo = function () {
+        var curentDay = new Date();
+        return curentDay.setDate(curentDay.getDate() + (7 - curentDay.getDay()));
+    };
+    DishAddComponent.prototype.setDefaultDateFrom = function () {
+        return new Date();
     };
     return DishAddComponent;
 }());

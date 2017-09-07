@@ -61,13 +61,13 @@
                     <label for="from-input" class="text-right middle">From</label>
                 </div>
                 <div class="small-9 cell">
-                    <input type="text" id="from-input" formControlName="dateFrom" placeholder="date from" required>
+                    <input type="date" id="from-input" formControlName="dateFrom" placeholder="date from" [value]="addForm.get('dateFrom').value | date:'yyyy-MM-dd'" required>
                 </div>
                 <div class="small-3 cell">
                     <label for="to-input" class="text-right middle">To</label>
                 </div>
                 <div class="small-9 cell">
-                    <input type="text" id="to-input" formControlName="dateTo" placeholder="date to" required>
+                    <input type="date" id="to-input" formControlName="dateTo" placeholder="date to" [value]="addForm.get('dateTo').value | date:'yyyy-MM-dd'">
                 </div>
                 <div class="button-group expanded small-12 cell">
                     <button class="submit button" (click)="goBack()">Back</button>

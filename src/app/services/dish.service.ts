@@ -25,8 +25,8 @@ export class DishService {
             .toPromise()
             //.then(response => response.json().data as Dish[])
             .then(function(response) {
-                            console.log(response.json().data.JSON);
-                            return response.json().data as Dish[];
+                            console.log(response.json().data.map(function(dish:Dish){dish.params.dateFrom = new Date(dish.params.dateFrom); return dish}));
+                            return response.json().data.map(function(dish:Dish):Dish{dish.params.dateFrom = new Date(dish.params.dateFrom); dish.params.dateTo = new Date(dish.params.dateTo); return dish}) as Dish[];
                     })
             .catch(this.handleError);
     }

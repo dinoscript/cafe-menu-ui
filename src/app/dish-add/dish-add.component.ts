@@ -40,15 +40,16 @@ export class DishAddComponent implements OnInit {
 
     createForm() {
         this.dateTo = new Date;
-        console.log (this.dateTo);
-        console.log (this.dateTo);
+        //console.log (this.dateTo);
+        //console.log (this.dateTo);
         this.addForm = this.fb.group({
             name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(50)/*, this.nameValidator*/]],
             price: [this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '', [Validators.required, this.priceValidator]],
             imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
-            dateFrom: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateFrom : '',
-            dateTo: this.dishService.selectedDish ? this.dishService.selectedDish.params.dateTo : ''
+            dateFrom: this.setDefaultDateFrom(),
+            dateTo: {value: this.setDefaultDateTo(), disabled: true}
         });
+        //console.log(this.addForm);
     }
 
     /*
@@ -68,6 +69,15 @@ export class DishAddComponent implements OnInit {
 
         }
         return null;
+    }
+
+    setDefaultDateTo ():Date {
+        let curentDay:Date = new Date();
+        return curentDay.setDate(curentDay.getDate() + (7 - curentDay.getDay()))
+    }
+
+    setDefaultDateFrom ():Date {
+        return new Date();
     }
 
     /*

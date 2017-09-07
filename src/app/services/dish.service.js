@@ -26,8 +26,8 @@ var DishService = (function () {
         return this.http.get(this.dishesUrl)
             .toPromise()
             .then(function (response) {
-            console.log(response.json().data.JSON);
-            return response.json().data;
+            console.log(response.json().data.map(function (dish) { dish.params.dateFrom = new Date(dish.params.dateFrom); return dish; }));
+            return response.json().data.map(function (dish) { dish.params.dateFrom = new Date(dish.params.dateFrom); dish.params.dateTo = new Date(dish.params.dateTo); return dish; });
         })
             .catch(this.handleError);
     };
