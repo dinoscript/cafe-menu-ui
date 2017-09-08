@@ -63,6 +63,11 @@
                 <div class="small-9 cell">
                     <input type="date" id="from-input" formControlName="dateFrom" placeholder="date from" [value]="addForm.get('dateFrom').value | date:'yyyy-MM-dd'" required>
                 </div>
+                <md-form-field>
+                    <input mdInput [mdDatepicker]="picker" placeholder="Choose a date">
+                    <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                    <md-datepicker #picker startView="year" [startAt]="startDate"></md-datepicker>
+                </md-form-field>
                 <div class="small-3 cell">
                     <label for="to-input" class="text-right middle">To</label>
                 </div>

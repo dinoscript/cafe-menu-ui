@@ -19,6 +19,9 @@ import { DishSearchComponent }  from './dish-search/dish-search.component';
 import { DishAddComponent }     from './dish-add/dish-add.component';
 import { SearchPipe }           from './pipes/search.pipe';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdDatepickerModule, MdNativeDateModule, MdInputModule} from '@angular/material';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,7 +29,11 @@ import { SearchPipe }           from './pipes/search.pipe';
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
-    ReactiveFormsModule // <-- #2 add to @NgModule imports
+    ReactiveFormsModule, // <-- #2 add to @NgModule imports
+    BrowserAnimationsModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
+    MdInputModule
   ],
   declarations: [
     AppComponent,

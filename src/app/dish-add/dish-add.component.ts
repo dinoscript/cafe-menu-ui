@@ -3,6 +3,8 @@ import { Component, OnInit }        from '@angular/core';
 import { Location }                 from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
+import {MdDatepickerModule} from '@angular/material';
+
 import { DishService } from '../services/dish.service';
 
 @Component({
@@ -71,8 +73,8 @@ export class DishAddComponent implements OnInit {
         return null;
     }
 
-    setDefaultDateTo ():Date {
-        let curentDay:Date = new Date();
+    setDefaultDateTo (): Date {
+        let curentDay: Date = new Date();
         return curentDay.setDate(curentDay.getDate() + (7 - curentDay.getDay()))
     }
 

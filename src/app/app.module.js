@@ -23,6 +23,8 @@ var dish_service_1 = require("./services/dish.service");
 var dish_search_component_1 = require("./dish-search/dish-search.component");
 var dish_add_component_1 = require("./dish-add/dish-add.component");
 var search_pipe_1 = require("./pipes/search.pipe");
+var animations_1 = require("@angular/platform-browser/animations");
+var material_1 = require("@angular/material");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +38,11 @@ AppModule = __decorate([
             http_1.HttpModule,
             angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
             app_routing_module_1.AppRoutingModule,
-            forms_2.ReactiveFormsModule // <-- #2 add to @NgModule imports
+            forms_2.ReactiveFormsModule,
+            animations_1.BrowserAnimationsModule,
+            material_1.MdDatepickerModule,
+            material_1.MdNativeDateModule,
+            material_1.MdInputModule
         ],
         declarations: [
             app_component_1.AppComponent,
