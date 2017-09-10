@@ -54,26 +54,31 @@
                 <div class="small-3 cell">
                     <label for="price-input" class="text-right middle">Price</label>
                 </div>
-                <div class="small-9 cell">
-                    <input type="number" id="price-input" formControlName="price" placeholder="price" required>
-                </div>
+                <md-form-field class="small-9 cell">
+                    <input type="number" mdInput id="price-input" formControlName="price" placeholder="price" required>
+                </md-form-field>
                 <div class="small-3 cell">
                     <label for="from-input" class="text-right middle">From</label>
                 </div>
-                <div class="small-9 cell">
+                <!--div class="small-9 cell">
                     <input type="date" id="from-input" formControlName="dateFrom" placeholder="date from" [value]="addForm.get('dateFrom').value | date:'yyyy-MM-dd'" required>
-                </div>
-                <md-form-field>
-                    <input mdInput [mdDatepicker]="picker" placeholder="Choose a date">
-                    <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                    <md-datepicker #picker startView="year" [startAt]="startDate"></md-datepicker>
+                </div-->
+                <md-form-field class="small-9 cell">
+                    <input mdInput id="from-input" [mdDatepicker]="pickerDateFrom" [min]="minDate" (dateInput)="onInput($event)" formControlName="dateFrom" placeholder="Choose a date from">
+                    <md-datepicker-toggle mdSuffix [for]="pickerDateFrom"></md-datepicker-toggle>
+                    <md-datepicker #pickerDateFrom startView="day" [startAt]="startDate"></md-datepicker>
                 </md-form-field>
                 <div class="small-3 cell">
                     <label for="to-input" class="text-right middle">To</label>
                 </div>
-                <div class="small-9 cell">
+                <!--div class="small-9 cell">
                     <input type="date" id="to-input" formControlName="dateTo" placeholder="date to" [value]="addForm.get('dateTo').value | date:'yyyy-MM-dd'">
-                </div>
+                </div-->
+                <md-form-field class="small-9 cell">
+                    <input mdInput id="to-input" [mdDatepicker]="pickerDateTo" [min]="minDate" [max]="maxDate" formControlName="dateTo" placeholder="Choose a date to">
+                    <md-datepicker-toggle mdSuffix [for]="pickerDateTo"></md-datepicker-toggle>
+                    <md-datepicker #pickerDateTo startView="day" [startAt]="startDate"></md-datepicker>
+                </md-form-field>
                 <div class="button-group expanded small-12 cell">
                     <button class="submit button" (click)="goBack()">Back</button>
                     <button type="submit" class="alert button" [disabled]=addForm.invalid>Add</button>

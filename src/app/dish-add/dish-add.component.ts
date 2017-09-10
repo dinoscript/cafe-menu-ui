@@ -14,7 +14,9 @@ import { DishService } from '../services/dish.service';
 })
 export class DishAddComponent implements OnInit {
     addForm:FormGroup;
-    dateTo:Date;
+    currentDate:Date;
+    minDate:Date;
+    maxDate:Date;
 
     constructor(private dishService:DishService,
                 private location:Location,
@@ -41,28 +43,15 @@ export class DishAddComponent implements OnInit {
     }
 
     createForm() {
-        this.dateTo = new Date;
-        //console.log (this.dateTo);
-        //console.log (this.dateTo);
+        this.currentDate = new Date;
         this.addForm = this.fb.group({
             name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '', [Validators.required, Validators.minLength(4), Validators.maxLength(50)/*, this.nameValidator*/]],
             price: [this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '', [Validators.required, this.priceValidator]],
             imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
-            dateFrom: this.setDefaultDateFrom(),
-            dateTo: {value: this.setDefaultDateTo(), disabled: true}
+            dateFrom: this.setDateFrom(),
+            dateTo: this.setDateTo(this.minDate)
         });
-        //console.log(this.addForm);
     }
-
-    /*
-    nameValidator(control:FormControl):{[s:string]:boolean} {
-
-        if (control.value === "nonono") {
-            return {"badName": true};
-        }
-        return null;
-    }
-    */
 
     priceValidator(control:FormControl):{[s:string]:boolean} {
 
@@ -73,21 +62,20 @@ export class DishAddComponent implements OnInit {
         return null;
     }
 
-    setDefaultDateTo (): Date {
-        let curentDay: Date = new Date();
-        return curentDay.setDate(curentDay.getDate() + (7 - curentDay.getDay()))
+    setDateTo(minDate) {
+        this.maxDate = new Date;
+        this.maxDate.setDate(minDate.getDate() + (7 - minDate.getDay()));
+        return this.maxDate
     }
 
-    setDefaultDateFrom ():Date {
-        return new Date();
+    setDateFrom():Date {
+        this.minDate = new Date();
+        return this.minDate;
     }
 
-    /*
-    forbiddenNameValidator(nameRe:RegExp):ValidatorFn {
-        return (control:AbstractControl):{[key: string]: any} => {
-            const forbidden = nameRe.test(control.value);
-            return forbidden ? {'forbiddenName': {value: control.value}} : null;
-        };
+    onInput($event){
+        this.minDate = $event.value;
+        this.setDateTo(this.minDate);
+        this.addForm.controls['dateTo'].setValue(this.maxDate);
     }
-    */
 }

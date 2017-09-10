@@ -38,39 +38,34 @@ var DishAddComponent = (function () {
         this.location.back();
     };
     DishAddComponent.prototype.createForm = function () {
-        this.dateTo = new Date;
-        //console.log (this.dateTo);
-        //console.log (this.dateTo);
+        this.currentDate = new Date;
         this.addForm = this.fb.group({
             name: [this.dishService.selectedDish ? this.dishService.selectedDish.params.name : '', [forms_1.Validators.required, forms_1.Validators.minLength(4), forms_1.Validators.maxLength(50) /*, this.nameValidator*/]],
             price: [this.dishService.selectedDish ? this.dishService.selectedDish.params.price : '', [forms_1.Validators.required, this.priceValidator]],
             imgUrl: this.dishService.selectedDish ? this.dishService.selectedDish.params.imgUrl : '',
-            dateFrom: this.setDefaultDateFrom(),
-            dateTo: { value: this.setDefaultDateTo(), disabled: true }
+            dateFrom: this.setDateFrom(),
+            dateTo: this.setDateTo(this.minDate)
         });
-        //console.log(this.addForm);
     };
-    /*
-    nameValidator(control:FormControl):{[s:string]:boolean} {
-
-        if (control.value === "nonono") {
-            return {"badName": true};
-        }
-        return null;
-    }
-    */
     DishAddComponent.prototype.priceValidator = function (control) {
         if (control.value <= 0) {
             return { "badPrice": true };
         }
         return null;
     };
-    DishAddComponent.prototype.setDefaultDateTo = function () {
-        var curentDay = new Date();
-        return curentDay.setDate(curentDay.getDate() + (7 - curentDay.getDay()));
+    DishAddComponent.prototype.setDateTo = function (minDate) {
+        this.maxDate = new Date;
+        this.maxDate.setDate(minDate.getDate() + (7 - minDate.getDay()));
+        return this.maxDate;
     };
-    DishAddComponent.prototype.setDefaultDateFrom = function () {
-        return new Date();
+    DishAddComponent.prototype.setDateFrom = function () {
+        this.minDate = new Date();
+        return this.minDate;
+    };
+    DishAddComponent.prototype.onInput = function ($event) {
+        this.minDate = $event.value;
+        this.setDateTo(this.minDate);
+        this.addForm.controls['dateTo'].setValue(this.maxDate);
     };
     return DishAddComponent;
 }());
