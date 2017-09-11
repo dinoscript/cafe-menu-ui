@@ -9,79 +9,63 @@
         <div class="menu-item-card-info medium-6">
 
             <div class="grid-x grid-padding-x">
-                <div *ngIf="addForm.controls['name'].invalid"
-                     class="small-12 cell text-right">
-                    <div *ngIf="addForm.controls['name'].errors.required" class="invalid-info">
-                        Name is required
-                    </div>
-                    <div *ngIf="addForm.controls['name'].errors.minlength" class="invalid-info">
+
+                <md-form-field class="small-12 cell">
+                    <input type="text" mdInput id="title-input" formControlName="name" placeholder="name" required>
+                    <md-error *ngIf="addForm.controls['name'].invalid && addForm.controls['name'].errors.minlength">
                         Name must be at least 4 characters long
-                    </div>
-                    <div *ngIf="addForm.controls['name'].errors.maxlength" class="invalid-info">
+                    </md-error>
+                    <md-error *ngIf="addForm.controls['name'].invalid && addForm.controls['name'].errors.maxlength">
                         Name must be no more than 50 characters long
-                    </div>
-                    <div *ngIf="addForm.controls['name'].invalid && addForm.controls['name'].hasError('badName') && !addForm.controls['name'].errors.required" class="invalid-info">
-                        Price must be > 0
-                    </div>
-                </div>
-                <div *ngIf="!addForm.controls['name'].invalid"
-                     class="small-12 cell text-right">
-                    <div class="valid-info">
-                        Name is valid
-                    </div>
-                </div>
-                <div class="small-3 cell">
-                    <label for="title-input" class="text-right middle">Title</label>
-                </div>
-                <div class="small-9 cell">
-                    <input type="text" id="title-input" formControlName="name" placeholder="name" required>
-                </div>
-                <div *ngIf="addForm.controls['price'].invalid"
-                     class="small-12 cell text-right">
-                    <div *ngIf="addForm.controls['price'].errors.required" class="invalid-info">
-                        Price is required
-                    </div>
-                    <div *ngIf="addForm.controls['price'].invalid && addForm.controls['price'].hasError('badPrice') && !addForm.controls['price'].errors.required" class="invalid-info">
-                        Price must be > 0
-                    </div>
-                </div>
-                <div *ngIf="!addForm.controls['price'].invalid"
-                     class="small-12 cell text-right">
-                    <div class="valid-info">
-                        Price is valid
-                    </div>
-                </div>
-                <div class="small-3 cell">
-                    <label for="price-input" class="text-right middle">Price</label>
-                </div>
-                <md-form-field class="small-9 cell">
-                    <input type="number" mdInput id="price-input" formControlName="price" placeholder="price" required>
+                    </md-error>
+                    <md-error *ngIf="addForm.controls['name'].invalid && addForm.controls['name'].errors.required">
+                        Name is <strong>required</strong>
+                    </md-error>
+                    <md-hint *ngIf="!addForm.controls['name'].invalid" align="start">
+                        <strong>Name is valid</strong>
+                    </md-hint>
                 </md-form-field>
-                <div class="small-3 cell">
-                    <label for="from-input" class="text-right middle">From</label>
-                </div>
-                <!--div class="small-9 cell">
-                    <input type="date" id="from-input" formControlName="dateFrom" placeholder="date from" [value]="addForm.get('dateFrom').value | date:'yyyy-MM-dd'" required>
-                </div-->
-                <md-form-field class="small-9 cell">
-                    <input mdInput id="from-input" [mdDatepicker]="pickerDateFrom" [min]="minDate" (dateInput)="onInput($event)" formControlName="dateFrom" placeholder="Choose a date from">
+
+                <md-form-field class="small-12 cell">
+                    <input type="number" mdInput id="price-input" formControlName="price" placeholder="price" required>
+                    <md-error *ngIf="addForm.controls['price'].invalid && addForm.controls['price'].hasError('badPrice') && !addForm.controls['price'].errors.required">
+                        Price must be > 0
+                    </md-error>
+                    <md-error *ngIf="addForm.controls['price'].invalid && addForm.controls['price'].errors.required">
+                        Price is <strong>required</strong>
+                    </md-error>
+                    <md-hint *ngIf="!addForm.controls['price'].invalid" align="start">
+                        <strong>Price is valid</strong>
+                    </md-hint>
+                </md-form-field>
+
+                <md-form-field class="small-12 cell">
+                    <input mdInput id="from-input" [mdDatepicker]="pickerDateFrom" [min]="minDate" (dateInput)="onInput($event)" formControlName="dateFrom" placeholder="Choose a date from" required>
                     <md-datepicker-toggle mdSuffix [for]="pickerDateFrom"></md-datepicker-toggle>
                     <md-datepicker #pickerDateFrom startView="day" [startAt]="startDate"></md-datepicker>
+                    <md-error *ngIf="addForm.controls['dateFrom'].invalid && addForm.controls['dateFrom'].errors.required">
+                        this date is <strong>required</strong>
+                    </md-error>
+                    <md-hint *ngIf="!addForm.controls['dateFrom'].invalid" align="start">
+                        <strong>this date is valid</strong>
+                    </md-hint>
                 </md-form-field>
-                <div class="small-3 cell">
-                    <label for="to-input" class="text-right middle">To</label>
-                </div>
-                <!--div class="small-9 cell">
-                    <input type="date" id="to-input" formControlName="dateTo" placeholder="date to" [value]="addForm.get('dateTo').value | date:'yyyy-MM-dd'">
-                </div-->
-                <md-form-field class="small-9 cell">
-                    <input mdInput id="to-input" [mdDatepicker]="pickerDateTo" [min]="minDate" [max]="maxDate" formControlName="dateTo" placeholder="Choose a date to">
+
+                <md-form-field class="small-12 cell">
+                    <input mdInput id="to-input" [mdDatepicker]="pickerDateTo" [min]="minDate" [max]="maxDate" formControlName="dateTo" placeholder="Choose a date to" required>
                     <md-datepicker-toggle mdSuffix [for]="pickerDateTo"></md-datepicker-toggle>
                     <md-datepicker #pickerDateTo startView="day" [startAt]="startDate"></md-datepicker>
+                    <md-error *ngIf="addForm.controls['dateTo'].invalid && addForm.controls['dateTo'].errors.required">
+                        this date is <strong>required</strong>
+                    </md-error>
+                    <md-hint *ngIf="!addForm.controls['dateFrom'].invalid" align="start">
+                        <strong>this date is valid</strong>
+                    </md-hint>
                 </md-form-field>
+
                 <div class="button-group expanded small-12 cell">
                     <button class="submit button" (click)="goBack()">Back</button>
-                    <button type="submit" class="alert button" [disabled]=addForm.invalid>Add</button>
+                    <button type="submit" class="success button" [disabled]=addForm.invalid>Add</button>
                 </div>
             </div>
         </div>

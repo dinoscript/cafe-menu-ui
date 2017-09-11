@@ -54,9 +54,11 @@ var DishAddComponent = (function () {
         return null;
     };
     DishAddComponent.prototype.setDateTo = function (minDate) {
-        this.maxDate = new Date;
-        this.maxDate.setDate(minDate.getDate() + (7 - minDate.getDay()));
-        return this.maxDate;
+        if (minDate) {
+            this.maxDate = new Date;
+            this.maxDate.setDate(minDate.getDate() + (7 - minDate.getDay()));
+            return this.maxDate;
+        }
     };
     DishAddComponent.prototype.setDateFrom = function () {
         this.minDate = new Date();

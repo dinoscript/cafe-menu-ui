@@ -63,9 +63,12 @@ export class DishAddComponent implements OnInit {
     }
 
     setDateTo(minDate) {
-        this.maxDate = new Date;
-        this.maxDate.setDate(minDate.getDate() + (7 - minDate.getDay()));
-        return this.maxDate
+        if (minDate) {
+            this.maxDate = new Date;
+            this.maxDate.setDate(minDate.getDate() + (7 - minDate.getDay()));
+            return this.maxDate
+        }
+        
     }
 
     setDateFrom():Date {

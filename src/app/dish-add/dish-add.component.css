@@ -7,11 +7,29 @@
     font-size: 10px;
     color: red;
 }
-
+/*
 .ng-valid[required] {
     border-left: 3px solid green;
 }
 
 .ng-invalid:not(form) {
     border-left: 3px solid red;
+}
+*/
+md-form-field {
+	margin-bottom: 15px;
+}
+
+.mat-input-element {
+    font: inherit;
+    background: 0 0;
+    color: currentColor;
+    border: none;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    vertical-align: bottom;
+    box-shadow: none;
 }
